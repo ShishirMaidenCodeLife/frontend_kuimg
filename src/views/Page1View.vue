@@ -13,17 +13,17 @@
                 <label for="firstname" class="placeholder">Tag</label>
             </div>
 
-            <div class="input-container ic2">
+            <!-- <div class="input-container ic2">
                 <input v-model="form.keywords" class="input" type="text" placeholder=" " />
                 <div class="cut"></div>
                 <label for="keywords" class="placeholder">Keywords</label>
-            </div>
+            </div> -->
 
-            <div class="input-container ic2">
+            <!-- <div class="input-container ic2">
                 <input v-model="form.counters" class="input" type="text" placeholder=" " />
                 <div class="cut"></div>
                 <label for="keywords" class="placeholder">Counter keywords</label>
-            </div>
+            </div> -->
 
             <div class="input-container ic2">
                 <input v-model="key" class="input" type="text" placeholder=" " readonly/>
@@ -58,8 +58,8 @@ export default {
       loading: false,
         form: {
             tag: '',
-            keywords: [],
-            counters: [],
+            //keywords: [],
+            //counters: [],
         }
     }
   },
@@ -74,8 +74,8 @@ export default {
 
         const data = {
             tag: this.form.tag,
-            keywords: this.form.keywords.split(",").map(element => { return element.trim() }),
-            counters: this.form.counters.split(",").map(element => { return element.trim() }),
+            /*keywords: this.form.keywords.split(",").map(element => { return element.trim() }),
+            counters: this.form.counters.split(",").map(element => { return element.trim() }),*/
             key: this.key
         }
        this.loading = true
