@@ -1,11 +1,15 @@
 <template>
-    <div id="app">
-        <div v-if="!file">
-            <div :class="['dropZone', dragging ? 'dropZone-over' : '']" @dragenter="dragging = true" @dragleave="dragging = false">
-            <div class="dropZone-info" @drag="onChange">
-                <span class="fa fa-cloud-upload dropZone-title"></span>
+    <div id="app" style="background-color: #fcfaff;" >
+      <div style=" padding: 30px;  display: flex; justify-content: center;   "> 
+        <div style="border-radius: 35px; width: 30%;  border: 1px solid #eee; background-color: white;" >
+        
+        <div v-if="!file" style="  display: flex; justify-content: center;  width: full;">
+            <div :class="['dropZone', dragging ? 'dropZone-over' : '']" @dragenter="dragging = true" @dragleave="dragging = false" >
+            <div class="dropZone-info" @drag="onChange" >
+                <span class="fa fa-cloud-upload dropZone-title" style="margin-right: 8px;"></span>
                 <span class="dropZone-title">Drop file or click to upload</span>
                 <div class="dropZone-upload-limit-info">
+                  <br>
                 <div>extension support: jpg, png, jpeg</div>
                 <div>maximum file size: 5 MB</div>
                 </div>
@@ -14,12 +18,17 @@
             </div>
         </div>
 
-        <div v-else class="dropZone-uploaded">
+        <div v-else style="  display: flex; justify-content: center;  width: full;">
+        <div class="dropZone-uploaded"  style="padding: 10px">
+          
             <div class="dropZone-uploaded-info">
-              <span class="dropZone-title">Uploaded</span>
+              <span class="dropZone-title" >File Uploaded  </span>
+             <br>
               <button type="button" class="btn btn-primary removeFile" @click="removeFile">Remove File</button>
             </div>
         </div>
+    
+      </div>
 
         <div
           class="imagePreviewWrapper"
@@ -27,10 +36,12 @@
           @click="selectImage">
         </div>
   
-        <div class="uploadedFile-info">
+        <div class="uploadedFile-info" style="margin-bottom: 10%;">
             <div>Filename: {{ file.name }}</div>
             <div>Filesize(bytes): {{ file.size }}</div>
             <div>extension：{{ extension }}</div>
+        </div>
+        </div>
         </div>
     </div>
 </template>
@@ -79,6 +90,7 @@ export default {
     },
     removeFile() {
       this.file = '';
+      this.previewImage=null;
     }
   },
   computed: {
@@ -92,18 +104,21 @@ export default {
 
 <style>
 .dropZone {
-  width: 30%;
-  height: 200px;
+  margin-top: 10%;
+  width: 70%;
+  height: 160px;
   position: relative;
-  border: 2px dashed #eee;
+  border: 2px dashed #d0adcb;
+  border-radius: 20px;
 }
 
 .dropZone:hover {
-  border: 2px solid #2e94c4;
+  border: 2px dashed #bc6f9a;
+  
 }
 
 .dropZone:hover .dropZone-title {
-  color: #1975A0;
+  color: #bc6f9a;
 }
 
 .dropZone-info {
@@ -117,6 +132,8 @@ export default {
 
 .dropZone-title {
   color: #787878;
+  font-size: large;
+  font-weight: 700;
 }
 
 .dropZone input {
@@ -143,10 +160,13 @@ export default {
 }
 
 .dropZone-uploaded {
+  margin-top: 10%;
+  margin-bottom: 10%;
+
   width: 80%;
-  height: 200px;
+  height: 80px;
   position: relative;
-  border: 2px dashed #eee;
+  /* border: 2px dashed #eee; */
 }
 
 .dropZone-uploaded-info {

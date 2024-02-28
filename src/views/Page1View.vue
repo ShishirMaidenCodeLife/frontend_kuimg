@@ -1,15 +1,15 @@
 <template>
-  <div class="body">
+  <div class="body" style="background-color: #fcfaff;">
     <Loader v-if="loading" />
-    <form v-else method="POST" @submit="checkForm">
-        <div class="form">
+    <form v-else method="POST" @submit="checkForm" >
+        <div class="form" style="background-color: white; padding:40px;margin-top:10%; width: full;">
 
-            <div class="title">KU Image Tagging Project</div>
+            <div class="title" style="color: #423e40e2;">KU Image Tagging Project</div>
             <div class="subtitle">Data Collection Interface</div>
 
             <div class="input-container ic1">
                 <input v-model="form.tag" id="firstname" class="input" type="text" placeholder=" " />
-                <div class="cut"></div>
+                <!-- <div class="cut"></div> -->
                 <label for="firstname" class="placeholder">Tag</label>
             </div>
 
@@ -27,11 +27,11 @@
 
             <div class="input-container ic2">
                 <input v-model="key" class="input" type="text" placeholder=" " readonly/>
-                <div class="cut"></div>
+                <!-- <div class="cut"></div> -->
                 <label for="lastname" class="placeholder">Key</label>
             </div>           
 
-            <div class="field is-grouped">
+            <div class="field is-grouped" style="margin-top: 15%;">
                 <div class="control">
                     <button class="button submit">Submit</button>
                 </div>
