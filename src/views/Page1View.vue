@@ -1,3 +1,4 @@
+<!-- fixed keywords and counterkeywords-->
 <template>
   <div class="body" style="background-color: #fcfaff;">
     <Loader v-if="loading" />
