@@ -91,21 +91,21 @@ export default {
             model_key : this.key
         }
 
-        // axios
-        // .post('/autotag/ml/train/binary', data) // CNN Train only 
-        // .then(response => {
-        //     if(response.data) {
-        //         axios.post('/autotag/model/register', registerData).then(response => {
-        //             this.loading = false
-        //         })
-
         axios
-        .post('/autotag/ml/train/gan', data) // Gan+CNN Train
+        .post('/autotag/ml/train/binary', data) // CNN Train only 
         .then(response => {
             if(response.data) {
                 axios.post('/autotag/model/register', registerData).then(response => {
                     this.loading = false
                 })
+
+        // axios
+        // .post('/autotag/ml/train/gan', data) // Gan+CNN Train
+        // .then(response => {
+        //     if(response.data) {
+        //         axios.post('/autotag/model/register', registerData).then(response => {
+        //             this.loading = false
+        //         })
 
             }
         })
