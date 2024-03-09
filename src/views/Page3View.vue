@@ -23,11 +23,8 @@
         background-color: #158be3;
         box-shadow: 0 2px 4px white(0, 0, 0, 0.1);
         color: white; padding: 8px;">Train</button>
-      
     </div>
-    <div v-if="modelSaveSuccess">
-      Model was saved successfully!
-    </div>
+
     <div v-if="modelSaveError">
       <p style="font-size: medium; font-weight: bold; color: rgb(227, 73, 73); ">
         Model was not saved due to lower validation accuracy ie: {{ returnedValAccuracy }}. Re-Autotraining in Progress.
@@ -41,20 +38,49 @@
         box-shadow: 0 2px 4px white(0, 0, 0, 0.1);
         color: white; padding: 10px;">{{ trainButtonText }}</button>
     </div>
-    <div>
-    <UploadFile @newFile="onTestFileChange($event)" />
+  
+    <div v-if="testFile">
+      <p style="font-size: medium; font-weight: bold; color: rgb(227, 73, 73); ">
+        The model's accuracy was in between 70 to 85. 
+        Thus we want you to test and confirm manully.
+        Please upload a test file and confirm the model. 
+      </p>
+    <TestUploadFile @newFile="onTestFileChange($event)" />
+    </div>
+    <div v-if="showTestTags" >
+      <div style="font-size: larger; color: rgb(112, 108, 108);">
+    {{ test_tags }}
+      </div>
+      <div>
+        <p style="font-size: medium; font-weight: bold; ">
+        Would you like to save the model or retrain it ?
+      </p>
+        <button @click="manual_confirm_save">Save Model</button>
+        <button @click="submitCustomString " style="width: 90px;
+        border: 2px solid #158be3;
+        text-transform: none;
+        border-radius: 0px  20px  20px 0px;
+        background-color: #158be3;
+        box-shadow: 0 2px 4px white(0, 0, 0, 0.1);
+        color: white; padding: 8px;">Re-Train</button>
+      </div>
+      <div v-if="modelSaveSuccess">
+      Model was saved successfully!
+    </div>
     </div>
   </main>
 </template>
 
 <script>
 import UploadFile from '@/components/UploadFile.vue'
+import TestUploadFile from '@/components/UploadTestFile.vue'
 import axios from 'axios'
 
 export default {
   name: 'Page3View',
   components: {
     UploadFile,
+    TestUploadFile,
   },
   data() {
     return {
@@ -67,6 +93,9 @@ export default {
       modelSaveSuccess: false,
       modelSaveError: false,
       returnedValAccuracy: 0,
+      testFile: false,
+      test_tags: [],
+      showTestTags: false,
     }
   },
   methods: {
@@ -96,6 +125,49 @@ export default {
         });
     },
 
+    
+    onTestFileChange(file) {
+      this.myfetchApi(file)
+    },
+
+    myfetchApi(file) {
+      const data = new FormData();
+      data.append('img', file);
+      data.append('temp_tag', this.customString);
+
+      axios.post('/autotag/tagTestVerify', data)
+        .then(response => {
+          if (response.data.tags === "We dont have model to recognise this, please train it first") {
+            this.showTestTags = true;
+            this.showStringField = true;
+            
+          } else {
+            this.showTestTags = true;
+            this.showStringField = false;
+          }
+          // this.showTags = true;
+          this.test_tags = response.data.tags;
+        })
+        .catch(error => {
+          console.error('Error fetching tags:', error);
+        });
+    },
+
+    manual_confirm_save(){
+      this.modelSaveSuccess = true;
+      this.modelSaveError=false;
+      const registerData = {
+                    template: "keras/MultiClassSingleTagKerasStandardModelTemplateA.py",
+                    group: this.customString,
+                    model_key: this.customString + '_model.zip',
+                };
+
+      axios.post('/autotag/model/register', registerData).then(response => {
+      console.log("Model Registered!")
+          });
+
+    },
+
         submitCustomString() {
 
           // runGanAndTrain() {
@@ -112,7 +184,7 @@ export default {
               .then(response => {
                 this.returnedValAccuracy = response.data;
 
-                if (this.returnedValAccuracy > 0.85) {
+                if (this.returnedValAccuracy > 0.99) {
                   this.modelSaveSuccess = true;
                   this.modelSaveError=false;
                   const registerData = {
@@ -125,11 +197,11 @@ export default {
                     console.log("Model Registered!")
                   });
                 } 
-                // else if (this.returnedValAccuracy >= 0.70 && this.returnedValAccuracy <= 0.85) {
-                //     // Code for accuracy between 0.70 and 0.85
-                //     // Add your specific handling for this range
+                else if (this.returnedValAccuracy >= 0.20 && this.returnedValAccuracy <= 0.98) {
+                  this.testFile=true;
+          
             
-                // } 
+                } 
                 
                 else {
                   
@@ -171,7 +243,7 @@ export default {
         .then(response => {
                 this.returnedValAccuracy = response.data;
 
-                if (this.returnedValAccuracy > 0.85) {
+                if (this.returnedValAccuracy > 0.99) {
                   this.modelSaveSuccess = true;
                   this.modelSaveError=false;
                   const registerData = {
@@ -186,11 +258,9 @@ export default {
                   });      
                 } 
                 
-                // else if (this.returnedValAccuracy >= 0.70 && this.returnedValAccuracy <= 0.85) {
-                //     // Code for accuracy between 0.70 and 0.85
-                //     // Add your specific handling for this range
-            
-                // } 
+                else if (this.returnedValAccuracy >= 0.20 && this.returnedValAccuracy <= 0.98) {
+                  this.testFile=true;
+                } 
                 else {
               // Validation loss is not satisfactory
                   this.modelSaveSuccess=false;
