@@ -3,6 +3,8 @@
       <div style=" padding: 30px;  display: flex; justify-content: center;   "> 
         <div style="border-radius: 35px; width: 30%;  border: 1px solid #eee; background-color: white;" >
         
+          <div style="margin-top: 10px; color:#c73c8be2; font-size:x-large; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Image Tagger</div>
+
         <div v-if="!file" style="  display: flex; justify-content: center;  width: full;">
             <div :class="['dropZone', dragging ? 'dropZone-over' : '']" @dragenter="dragging = true" @dragleave="dragging = false" >
             <div class="dropZone-info" @drag="onChange" >
