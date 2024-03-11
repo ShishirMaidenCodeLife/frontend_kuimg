@@ -1,17 +1,20 @@
 <template>
     <div id="app" style="background-color: #fcfaff;" >
       <div style=" padding: 30px;  display: flex; justify-content: center;   "> 
-        <div style="border-radius: 35px; width: 30%;  border: 1px solid #eee; background-color: white;" >
         
+        <div style="border-radius: 35px; width: 30%;  border: 1px solid #eee; background-color: white;" >
+
+          <div style="margin-top: 10px; color:#c73c8be2; font-size:x-large; font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;">Manual Testing</div>
+
         <div v-if="!file" style="  display: flex; justify-content: center;  width: full;">
             <div :class="['dropZone', dragging ? 'dropZone-over' : '']" @dragenter="dragging = true" @dragleave="dragging = false" >
             <div class="dropZone-info" @drag="onChange" >
                 <span class="fa fa-cloud-upload dropZone-title" style="margin-right: 8px;"></span>
-                <span class="dropZone-title">upload image you want to test</span>
+                <span class="dropZone-title">upload image for accuracy test</span>
                 <div class="dropZone-upload-limit-info">
                   <br>
                 <div>extension support: jpg, png, jpeg</div>
-                <div>maximum file size: 5 MB</div>
+                <div>maximum size: 5 MB</div>
                 </div>
             </div>
             <input type="file" @change="onChange">
@@ -36,11 +39,11 @@
           @click="selectImage">
         </div>
   
-        <div class="uploadedFile-info" style="margin-bottom: 10%;">
+        <!-- <div class="uploadedFile-info" style="margin-bottom: 10%;">
             <div>Filename: {{ file.name }}</div>
             <div>Filesize(bytes): {{ file.size }}</div>
             <div>extension：{{ extension }}</div>
-        </div>
+        </div> -->
         </div>
         </div>
     </div>
