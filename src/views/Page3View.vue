@@ -49,24 +49,32 @@
     </div>
     <div v-if="showTestTags" >
       <div style="font-size: larger; color: rgb(112, 108, 108);">
+    <p>The image is </p>
     {{ test_tags }}
       </div>
       <div>
         <p style="font-size: medium; font-weight: bold; ">
         Would you like to save the model or retrain it ?
       </p>
-        <button @click="manual_confirm_save">Save Model</button>
-        <button @click="submitCustomString " style="width: 90px;
+      <button @click="manual_confirm_save" style="width: auto;
         border: 2px solid #158be3;
         text-transform: none;
-        border-radius: 0px  20px  20px 0px;
+        margin-right:20px;
+        border-radius: 20px  20px  20px 20px;
+        background-color: #158be3;
+        box-shadow: 0 2px 4px white(0, 0, 0, 0.1);
+        color: white; padding: 8px;">Save Model</button>
+        <button @click="submitCustomString " style="width: auto;
+        border: 2px solid #158be3;
+        text-transform: none;
+        border-radius: 20px  20px  20px 20px;
         background-color: #158be3;
         box-shadow: 0 2px 4px white(0, 0, 0, 0.1);
         color: white; padding: 8px;">Re-Train</button>
       </div>
-      <div v-if="modelSaveSuccess">
-      Model was saved successfully!
     </div>
+    <div v-if="modelSaveSuccess">
+      Model was saved successfully!
     </div>
   </main>
 </template>
