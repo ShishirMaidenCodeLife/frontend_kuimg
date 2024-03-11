@@ -1,34 +1,34 @@
 <template>
-    <div class="body">
+    <div class="body" style="background-color: #fcfaff;">
         <Loader msg="Training model" v-if="loading" />
 
         <form v-else method="POST" @submit="checkForm">
-            <div class="form">
+            <div class="form" style="background-color: white; padding:40px;margin-top:10%; width: full;">
 
-                <div class="title">KU Image Tagging Project</div>
+                <div class="title" style="color: #423e40e2;">KU Image Tagging Project</div>
                 <div class="subtitle">ML Training Interface</div>
 
                 <div class="input-container ic2">
                     <input v-model="form.tag" id="tag" class="input" type="text" placeholder=" " />
-                    <div class="cut"></div>
+                    <!-- <div class="cut"></div> -->
                     <label for="tag" class="placeholder">Tag here</label>
                 </div>
 
                 <div class="input-container ic1">
                     <input v-model="dataset_key" id="dataset_key" class="input" type="text" placeholder=" " readonly />
-                    <div class="cut"></div>
+                    <!-- <div class="cut"></div> -->
                     <label for="dataset_key" class="placeholder">Dataset key here</label>
                 </div>
 
                 <div class="input-container ic2">
                     <input v-model="key" id="key" class="input" type="text" placeholder=" " readonly/>
-                    <div class="cut"></div>
+                    <!-- <div class="cut"></div> -->
                     <label for="key" class="placeholder">Key here</label>
                 </div> 
                 
                 <div class="input-container ic2">
                     <input v-model="form.group" id="group" class="input" type="text" placeholder=" "/>
-                    <div class="cut"></div>
+                    <!-- <div class="cut"></div> -->
                     <label for="group" class="placeholder">Group</label>
                 </div>   
     
